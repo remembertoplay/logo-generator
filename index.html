@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script src="svg.js"></script>
+  </head>
+  <body >
+    <div id="drawing"></div>
+  </body>
+  <script>
+    var d = 100,
+      xl = Math.sin(60 * (Math.PI / 180)) * d, yl = Math.cos(60 * (Math.PI / 180)) * d,
+      xr = Math.sin(60 * (Math.PI / 180)) * d, yr = Math.cos(60 * (Math.PI / 180)) * d;
+    console.log(d, xr, yr, xl, yl);
+    /* create an svg drawing */
+    var draw = SVG('drawing').size('500', '500')
+
+    function triangle(offsetX, offsetY, left) {
+      x = left ? xl : xr; 
+      y = left ? yl : yr;
+      var triangle = (x + offsetX) + ',' + offsetY + ' ' + (x + offsetX) + ',' + (d + offsetY) + ' ' + offsetX + ',' + (y + offsetY);
+      console.log(triangle);
+      draw.polygon(triangle).fill('none').stroke({ width: 1 })
+    }
+
+    triangle(100, 0, true);
+    triangle(100, 100, true);
+    triangle(100, 200, true);
+  </script>
+</html>
+

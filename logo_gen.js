@@ -14,7 +14,7 @@ function triangle(offsetX, offsetY, left, color) {
 
   //console.log(triangle);
   draw.polygon(triangle).fill(color).stroke({ width: 5 }).attr({ id: 'tr' + count, 'stroke-linejoin': 'bevel' });
-   var text = draw.text('tr' + count).move(offsetX, offsetY)
+   var text = draw.text('tr' + count).move(x - 20 + offsetX + (left ? 0 : c-120), 40 + offsetY)
              text.font({
                        size: 10
                        , anchor: 'middle'
@@ -77,11 +77,11 @@ function getRandomColor() {
   var colors = getRandomColor(), color1 = colors.c1, color2 = colors.c2, colorAvg = colors.ca;
   console.log(color1, color2, colorAvg);
   var neighbors = {
-    'tr0': [1, 6], 'tr1': [0, 2], 'tr2': [1, 3, 8], 'tr3': [2, 4], 'tr4': [3, 10],
-    'tr5': [6, 8], 'tr6': [1, 6], 'tr7': [1, 6], 'tr8': [1, 6], 'tr9': [1, 6],
-    'tr10': [1, 6], 'tr11': [1, 6], 'tr12': [1, 6], 'tr13': [1, 6], 'tr14': [1, 6],
-    'tr15': [1, 6], 'tr16': [1, 6], 'tr17': [1, 6], 'tr18': [1, 6], 'tr19': [1, 6],
-    'tr20': [1, 6], 'tr21': [1, 6], 'tr22': [1, 6], 'tr23': [1, 6]
+    'tr0': [1,6], 'tr1': [0,2], 'tr2': [1,3,8], 'tr3': [2,4], 'tr4': [3,10],
+    'tr5': [6,12], 'tr6': [0,5,7], 'tr7': [6,8,14], 'tr8': [2,7,9], 'tr9': [8,10,16],
+    'tr10': [4,9,11], 'tr11': [10,18], 'tr12': [5,13], 'tr13': [12,14,19], 'tr14': [7,13,15],
+    'tr15': [14,16,21], 'tr16': [9,15,17], 'tr17': [16,18,23], 'tr18': [11,17], 'tr19': [13,20],
+    'tr20': [19,21], 'tr21': [15,20,22], 'tr22': [21,23], 'tr23': [17,22]
   };
 console.log(neighbors);
 

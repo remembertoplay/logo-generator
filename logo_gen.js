@@ -12,8 +12,8 @@ function triangle(offsetX, offsetY, left, color) {
     (x + offsetX) + ',' + (d + offsetY) + ' ' + 
     (offsetX + (left ? 0 : c )) + ',' + (y + offsetY);
 
-  console.log(triangle);
-  draw.polygon(triangle).fill(color).stroke({ width: 1 });
+  //console.log(triangle);
+  draw.polygon(triangle).fill(color).stroke({ width: 5 });
   count++;
 }
 
@@ -23,7 +23,7 @@ function row(xOff, yOff, big, left) {
   var big = big ? 3 : 2, v = 0;
 
   if (!left)
-    triangle(xOff - v * x, yOff + v * y, false);
+    triangle(xOff, yOff, false);
 
   for (v; v < big; v++) {
     triangle(xOff - v * x, yOff + v * y, true);
@@ -32,7 +32,6 @@ function row(xOff, yOff, big, left) {
 
   if (left)
     triangle(xOff - v * x, yOff + v * y, true, 'green');
-
 }
 row(xOff, yOff, false, false);
 row(x + xOff, y + yOff, true, false);

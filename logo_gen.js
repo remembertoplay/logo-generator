@@ -13,7 +13,7 @@ function triangle(offsetX, offsetY, left, color) {
     (offsetX + (left ? 0 : c )) + ',' + (y + offsetY);
 
   //console.log(triangle);
-  draw.polygon(triangle).fill(color).stroke({ width: 5 });
+  draw.polygon(triangle).fill(color).stroke({ width: 5 }).attr({ 'stroke-linejoin': 'bevel' });
   count++;
 }
 

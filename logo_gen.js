@@ -13,7 +13,7 @@ function triangle(offsetX, offsetY, left, color) {
     (offsetX + (left ? 0 : c )) + ',' + (y + offsetY);
 
   //console.log(triangle);
-  draw.polygon(triangle).fill(color).stroke({ width: 5 }).attr({ 'stroke-linejoin': 'bevel' });
+  draw.polygon(triangle).fill(color).stroke({ width: 5 }).attr({ id: 'tr' + count, 'stroke-linejoin': 'bevel' });
   count++;
 }
 
@@ -27,12 +27,43 @@ function row(xOff, yOff, big, left) {
 
   for (v; v < big; v++) {
     triangle(xOff - v * x, yOff + v * y, true);
-    triangle(xOff - v * x - x, yOff + v * y + y, false, 'red');
+    triangle(xOff - v * x - x, yOff + v * y + y, false);
   }
 
   if (left)
-    triangle(xOff - v * x, yOff + v * y, true, 'green');
+    triangle(xOff - v * x, yOff + v * y, true);
 }
+
+
+// colors
+function getRandomInt() {
+  return Math.floor(Math.random() * 256);
+}
+
+function getRandomColor() {
+  var c1 = 'rgb(', c2 = 'rgb(', ca = 'rgb(', nr1, nr2;
+
+          for(var t = 2; t >= 0; t--) {
+            nr1 = getRandomInt();
+            nr2 = getRandomInt();
+            c1 += nr1;
+            c2 += nr2;
+            ca += Math.round((nr1 + nr2) / 2);
+            if(t != 0) {
+              c1 += ',';
+              c2 += ',';
+              ca += ',';
+            }
+          }
+          return {'c1':c1+')','c2':c2+')','ca':ca+')'};
+  }
+  
+var colors = getRandomColor(), color1 = colors.c1, color2 = colors.c2, colorAvg = colors.ca;
+console.log(color1, color2, colorAvg);
+
+
+
+
 row(xOff, yOff, false, false);
 row(x + xOff, y + yOff, true, false);
 row(2 * x + xOff, 2 * y + yOff, true, true);
@@ -41,3 +72,7 @@ row(2 * x + xOff, 4 * y + yOff, false, true);
 console.log("Triangles drawn:", count);
 if (count != 24) console.warn("Wrong number of triangles!");
 
+
+document.getElementById('tr0').setAttribute('fill', color1);
+document.getElementById('tr1').setAttribute('fill', colorAvg);
+document.getElementById('tr2').setAttribute('fill', color2);

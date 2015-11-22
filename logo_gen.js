@@ -14,6 +14,12 @@ function triangle(offsetX, offsetY, left, color) {
 
   //console.log(triangle);
   draw.polygon(triangle).fill(color).stroke({ width: 5 }).attr({ id: 'tr' + count, 'stroke-linejoin': 'bevel' });
+   var text = draw.text('tr' + count).move(offsetX, offsetY)
+             text.font({
+                       size: 10
+                       , anchor: 'middle'
+                       })
+
   count++;
 }
 
@@ -56,23 +62,49 @@ function getRandomColor() {
             }
           }
           return {'c1':c1+')','c2':c2+')','ca':ca+')'};
+      }
+
+      row(xOff, yOff, false, false);
+      row(x + xOff, y + yOff, true, false);
+      row(2 * x + xOff, 2 * y + yOff, true, true);
+      row(2 * x + xOff, 4 * y + yOff, false, true);
+
+  console.log("Triangles drawn:", count);
+  if (count != 24) console.warn("Wrong number of triangles!");
+
+
+  // Colors
+  var colors = getRandomColor(), color1 = colors.c1, color2 = colors.c2, colorAvg = colors.ca;
+  console.log(color1, color2, colorAvg);
+  var neighbors = {
+    'tr0': [1, 6], 'tr1': [0, 2], 'tr2': [1, 3, 8], 'tr3': [2, 4], 'tr4': [3, 10],
+    'tr5': [6, 8], 'tr6': [1, 6], 'tr7': [1, 6], 'tr8': [1, 6], 'tr9': [1, 6],
+    'tr10': [1, 6], 'tr11': [1, 6], 'tr12': [1, 6], 'tr13': [1, 6], 'tr14': [1, 6],
+    'tr15': [1, 6], 'tr16': [1, 6], 'tr17': [1, 6], 'tr18': [1, 6], 'tr19': [1, 6],
+    'tr20': [1, 6], 'tr21': [1, 6], 'tr22': [1, 6], 'tr23': [1, 6]
+  };
+console.log(neighbors);
+
+function setColor(id, color){
+  document.getElementById(id).setAttribute('fill', color);
+}
+
+var ttt = 0;
+function f(){
+  var t = 'tr' + ttt;
+  document.getElementById('b1').innerHTML = t;
+  ttt++;
+  for (var y=0; y<24; y++){
+    setColor('tr' + y, 'white');
   }
-  
-var colors = getRandomColor(), color1 = colors.c1, color2 = colors.c2, colorAvg = colors.ca;
-console.log(color1, color2, colorAvg);
+  document.getElementById(t).setAttribute('fill', 'red');
+  neighbors[t].forEach(function(el){
+    setColor('tr' + el, 'green');
+  });
+}
+f();
 
+//document.getElementById('tr0').setAttribute('fill', color1);
+//document.getElementById('tr1').setAttribute('fill', colorAvg);
+//document.getElementById('tr9').setAttribute('fill', color2);
 
-
-
-row(xOff, yOff, false, false);
-row(x + xOff, y + yOff, true, false);
-row(2 * x + xOff, 2 * y + yOff, true, true);
-row(2 * x + xOff, 4 * y + yOff, false, true);
-
-console.log("Triangles drawn:", count);
-if (count != 24) console.warn("Wrong number of triangles!");
-
-
-document.getElementById('tr0').setAttribute('fill', color1);
-document.getElementById('tr1').setAttribute('fill', colorAvg);
-document.getElementById('tr2').setAttribute('fill', color2);

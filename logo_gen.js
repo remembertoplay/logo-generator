@@ -1,3 +1,4 @@
+var LogoGen = function(){
 var d = 80, // Influences size of the logo
     x = Math.sin(60 * (Math.PI / 180)) * d,
     y = d / 2,
@@ -16,7 +17,7 @@ function triangle(offsetX, offsetY, left, color) {
     (x + offsetX) + ',' + (d + offsetY) + ' ' +
     (offsetX + (left ? 0 : 2 * x )) + ',' + (y + offsetY);
 
-  draw.polygon(triangle).fill(color).stroke({ width: 5 }).attr({ id: 'tr' + count, 'stroke-linejoin': 'bevel' });
+  draw.polygon(triangle).fill(color).stroke({ width: 0.5 }).attr({ id: 'tr' + count, 'stroke-linejoin': 'bevel' });
 
   count++;
 }
@@ -110,9 +111,22 @@ function intersect(a, b) {
   });
 }
 
+function clearColors(){
+  for (var r = 0; r < 24; r++) {
+    setColor('tr' + r, 'none');
+  }
+}
+
+clearColors();
 var set1 = doColor(color1);
 var set2 = doColor(color2);
 var set3 = intersect(set1, set2);
 set3.forEach(function(el){ setColor('tr' + el, colorAvg); });
 console.log(set1, set2, set3);
 
+};
+
+function logo() {
+  var lg = new LogoGen();
+}
+var lg = new LogoGen();

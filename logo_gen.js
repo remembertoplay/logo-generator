@@ -1,16 +1,17 @@
-var LogoGen = function () {
-    var d = 80, // Influences size of the logo
-        x = Math.sin(60 * (Math.PI / 180)) * d,
-        y = d / 2,
+var LogoGen = function (sizeish) {
+    this.d = sizeish;
+
+    var x = Math.sin(60 * (Math.PI / 180)) * this.d,
+        y = this.d / 2,
         draw = SVG('drawing').size('500', '500'),
         count = 0, // Counter to give the triangles an id, 0 based, from right top sloped down left
     // The top most point's offset from the edge of the canvas
         xOff = 100,
         yOff = 10;
 
-    console.log(d, x, y);
+    console.log(this.d, x, y);
 
-    function triangle(offsetX, offsetY, left, color) {
+    function triangle(d, offsetX, offsetY, left, color) {
         if (typeof color === 'undefined') color = 'none';
         var triangle =
             (x + offsetX) + ',' + offsetY + ' ' +
@@ -24,50 +25,64 @@ var LogoGen = function () {
         count++;
     }
 
-    function row(xOff, yOff, big, left) {
+    function row(d, xOff, yOff, big, left) {
         var nr = big ? 3 : 2, v = 0;
 
         if (!left)
-            triangle(xOff, yOff, false);
+            triangle(d, xOff, yOff, false);
 
         for (v; v < nr; v++) {
-            triangle(xOff - v * x, yOff + v * y, true);
-            triangle(xOff - v * x - x, yOff + v * y + y, false);
+            triangle(d, xOff - v * x, yOff + v * y, true);
+            triangle(d, xOff - v * x - x, yOff + v * y + y, false);
         }
 
         if (left)
-            triangle(xOff - v * x, yOff + v * y, true);
+            triangle(d, xOff - v * x, yOff + v * y, true);
     }
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
+
+    var colors = [
+        [255, 204, 9],
+        [246, 138, 33],
+        [228, 39, 43],
+        [232, 31, 111],
+        [189, 61, 147],
+        [113, 69, 155],
+        [77, 73, 156],
+        [57, 96, 169],
+        [32, 183, 232],
+        [70, 183, 140],
+        [73, 182, 80],
+        [120, 191, 68]
+    ];
+
     function getRandomColor() {
         var c1 = "rgb(",
             c2 = "rgb(",
             ca = "rgb(",
-            nr1, nr2;
+            nr1 = getRandomInt(0, colors.length), nr2;
 
-        for (var t = 2; t >= 0; t--) {
-            nr1 = getRandomInt(0, 256);
-            nr2 = getRandomInt(0, 256);
-            c1 += nr1;
-            c2 += nr2;
-            ca += Math.round((nr1 + nr2) / 2);
-            if (t != 0) {
-                c1 += ',';
-                c2 += ',';
-                ca += ',';
-            }
-        }
-        return {'c1': c1 + ')', 'c2': c2 + ')', 'ca': ca + ')'};
+        do {
+            nr2 = getRandomInt(0, colors.length);
+        } while (nr1 === nr2); // TODO and nr intersect nr2 < 2
+
+        // Multiply colors
+        ca += Math.round(colors[nr1][0] * colors[nr2][0] / 255) + ',' +
+            Math.round(colors[nr1][1] * colors[nr2][1] / 255) + ',' +
+            Math.round(colors[nr1][2] * colors[nr2][2] / 255) + ')';
+
+
+        return {'c1': c1 + colors[nr1].join(',') + ')', 'c2': c2 + colors[nr2].join(',') + ')', 'ca': ca};
     }
 
-    row(xOff, yOff, false, false);
-    row(x + xOff, y + yOff, true, false);
-    row(2 * x + xOff, 2 * y + yOff, true, true);
-    row(2 * x + xOff, 4 * y + yOff, false, true);
+    row(this.d, xOff, yOff, false, false);
+    row(this.d, x + xOff, y + yOff, true, false);
+    row(this.d, 2 * x + xOff, 2 * y + yOff, true, true);
+    row(this.d, 2 * x + xOff, 4 * y + yOff, false, true);
 
     console.log("Triangles drawn:", count);
     if (count != 24) console.warn("Wrong number of triangles!");
@@ -122,13 +137,14 @@ var LogoGen = function () {
     this.redraw = function () {
         clearColors();
         var colors = getRandomColor();
+        console.log("colors", colors);
+
         var set1 = doColor(colors.c1);
         var set2 = doColor(colors.c2);
         var set3 = intersect(set1, set2);
         set3.forEach(function (el) {
             setColor('tr' + el, colors.ca);
         });
-        console.log(set1, set2, set3);
     };
 
 };
@@ -136,5 +152,5 @@ var LogoGen = function () {
 function logo() {
     lg.redraw();
 }
-var lg = new LogoGen();
+var lg = new LogoGen(80);
 lg.redraw();

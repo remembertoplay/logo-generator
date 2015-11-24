@@ -1,16 +1,30 @@
-var LogoGen = function (sizeish, shape) {
+function gets() {
+    var queryDict = {};
+    location.search.substr(1).split("&").forEach(function (item) {
+        queryDict[item.split("=")[0]] = item.split("=")[1]
+    });
+    return queryDict;
+}
+
+var LogoGen = function (sizeish, overlayMethod) {
     this.d = sizeish;
-    this.shape = shape;
 
     var x = Math.sin(60 * (Math.PI / 180)) * this.d,
         y = this.d / 2,
-        draw = SVG('drawing').size('150', '150'),
+        draw = SVG('drawing').size(500, 500),
         count = 0, // Counter to give the triangles an id, 0 based, from right top sloped down left
     // The top most point's offset from the edge of the canvas
-        xOff = 50,
-        yOff = 10;
+        xOff = this.d,
+        yOff = 10,
+        allowedOverlayMethods = ['multiply', 'blend'];
 
-    console.log(this.d, x, y);
+    this.overlayMethod = typeof overlayMethod === 'undefined' || allowedOverlayMethods.indexOf(overlayMethod) === -1 ? allowedOverlayMethods[0] : overlayMethod;
+
+    console.log(this.d, x, y, this.overlayMethod);
+
+    // OUCH
+    document.getElementById(this.overlayMethod).style.fontWeight = 'bold';
+    // Seriously. Ouch.
 
     function triangle(d, offsetX, offsetY, left, color) {
         if (typeof color === 'undefined') color = 'none';
@@ -20,14 +34,11 @@ var LogoGen = function (sizeish, shape) {
             (offsetX + (left ? 0 : 2 * x )) + ',' + (y + offsetY);
 
         draw.polygon(triangle).fill(color).stroke({width: 0.5}).attr({
-            id: 'tr' + shape + '_' + count,
+            id: 'tr' + count,
             'stroke-linejoin': 'bevel'
         });
 
-        //draw.text('tr' + count).move(x - 20 + offsetX + (left ? 0 : 2 * x - 100), 40 + offsetY).font({
-        //    size: 10,
-        //    anchor: 'middle'
-        //});
+        //draw.text('tr' + count).move(x - 20 + offsetX + (left ? 0 : 2 * x - 100), 40 + offsetY).font({ size: 10, anchor: 'middle' });
 
         count++;
     }
@@ -47,8 +58,8 @@ var LogoGen = function (sizeish, shape) {
             triangle(d, xOff - v * x, yOff + v * y, true);
     }
 
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
+    function getRandomInt(min, maxExc) {
+        return Math.floor(Math.random() * (maxExc - min)) + min;
     }
 
     var colors = [
@@ -66,7 +77,7 @@ var LogoGen = function (sizeish, shape) {
         [120, 191, 68]
     ];
 
-    function getRandomColor() {
+    function getRandomColor(overlayMethod) {
         var c1 = "rgb(",
             c2 = "rgb(",
             ca = "rgb(",
@@ -74,14 +85,23 @@ var LogoGen = function (sizeish, shape) {
 
         do {
             nr2 = getRandomInt(0, colors.length);
-        } while (nr1 === nr2); // TODO and nr intersect nr2 < 2
+        } while (nr1 === nr2);
 
-        // Multiply colors
-        ca += Math.round(colors[nr1][0] * colors[nr2][0] / 255) + ',' +
-            Math.round(colors[nr1][1] * colors[nr2][1] / 255) + ',' +
-            Math.round(colors[nr1][2] * colors[nr2][2] / 255) + ')';
-
-
+        switch (overlayMethod) {
+            case 'multiply':
+            default:
+                // Multiply colors
+                ca += Math.round(colors[nr1][0] * colors[nr2][0] / 255) + ',' +
+                    Math.round(colors[nr1][1] * colors[nr2][1] / 255) + ',' +
+                    Math.round(colors[nr1][2] * colors[nr2][2] / 255) + ')';
+                break;
+            case 'blend':
+                // Average colors (blend?)
+                ca = 'rgb(' + Math.round(colors[nr1][0] + colors[nr2][0] / 2) + ',' +
+                    Math.round(colors[nr1][1] + colors[nr2][1] / 2) + ',' +
+                    Math.round(colors[nr1][2] + colors[nr2][2] / 2) + ')';
+                break;
+        }
         return {'c1': c1 + colors[nr1].join(',') + ')', 'c2': c2 + colors[nr2].join(',') + ')', 'ca': ca};
     }
 
@@ -90,12 +110,8 @@ var LogoGen = function (sizeish, shape) {
     row(this.d, 2 * x + xOff, 2 * y + yOff, true, true);
     row(this.d, 2 * x + xOff, 4 * y + yOff, false, true);
 
-
     //console.log("Triangles drawn:", count);
     if (count != 24) console.warn("Wrong number of triangles!");
-
-    // Colors
-
 
     var shapes = [
         [9, 16, 17, 23, 22, 21],
@@ -128,7 +144,7 @@ var LogoGen = function (sizeish, shape) {
     ];
 
     function setColor(id, color) {
-        document.getElementById('tr' + shape + '_' + id).setAttribute('fill', color);
+        document.getElementById('tr' + id).setAttribute('fill', color);
     }
 
     function doColor(shape, color) {
@@ -139,8 +155,11 @@ var LogoGen = function (sizeish, shape) {
     }
 
     function intersect(a, b) {
-        var t;
-        if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
+        if (b.length > a.length) {
+            var t = b;
+            b = a;
+            a = t;
+        } // indexOf to loop over shorter
         return a.filter(function (e) {
             if (b.indexOf(e) !== -1) return true;
         });
@@ -154,25 +173,28 @@ var LogoGen = function (sizeish, shape) {
 
     this.redraw = function () {
         clearColors();
-        doColor(shapes[this.shape], 'lightblue');
-        //var colors = getRandomColor();
-        //console.log("colors", colors);
-        //
-        //var set1 = doColor(colors.c1);
-        //var set2 = doColor(colors.c2);
-        //var set3 = intersect(set1, set2);
-        //set3.forEach(function (el) {
-        //    setColor('tr' + el, colors.ca);
-        //});
+        var colors = getRandomColor(this.overlayMethod),
+            nr1 = getRandomInt(0, shapes.length), nr2, safety = 0, overlap;
+        do {
+            nr2 = getRandomInt(0, shapes.length);
+            safety++;
+            overlap = intersect(shapes[nr1], shapes[nr2]);
+        } while (safety < 100 && (nr1 === nr2 || overlap.length < 2)); // TODO some other way to make this safe
+
+        console.log("colors", colors, "shape1", nr1, "shape2", nr2, "safety", safety);
+        if (safety >= 100) console.warn("These shapes don't overlap! (Or very unlucky)");
+
+        doColor(shapes[nr1], colors.c1);
+        doColor(shapes[nr2], colors.c2);
+        doColor(overlap, colors.ca);
     };
 
 };
 
-function logo(logo) {
-    logo.redraw();
+function logo() {
+    lg.redraw();
 }
 
-
-for (var t = 0; t < 100; t++) {
-    logo(new LogoGen(30, t));
-}
+var qd = gets();
+var lg = new LogoGen(80, qd['overlayMethod']);
+logo(lg);

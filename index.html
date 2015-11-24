@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <script type="text/javascript" src="svg.js"></script>
-  </head>
-  <body >
-    <div style=" float: left" id="drawing"></div>
-    <!--<div style="margin-left: 420px">-->
-      <!--<button id="go" style="margin-top: 50px; width: 200px; height: 200px" onclick="logo();">AGAIN!</button>-->
-    <!--</div>-->
-  </body>
-  <script type="text/javascript" src="logo_gen.js"></script>
+    <style type="text/css">
+        button#go {
+            margin-top: 50px;
+            width: 200px;
+            height: 200px;
+        }
+
+        a {
+            font-family: Helvetica, sans-serif;
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div style=" float: left" id="drawing"></div>
+<div style="margin-left: 420px">
+    <button id="go" onclick="logo();">AGAIN!</button>
+    <br/>
+    <br/>
+    <a id="blend" href="index.html?overlayMethod=blend">blend</a>&nbsp;|&nbsp;<a id="multiply"
+                                                                                 href="index.html?overlayMethod=multiply">multiply</a>
+</div>
+</body>
+<script type="text/javascript" src="logo_gen.js"></script>
 </html>
 

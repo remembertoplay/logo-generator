@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="svg.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    <script type="text/javascript" src="logo_gen.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            var socket = io.connect('http://localhost:5000/test', {reconnection: false});
+            socket.on('change colors', function () {
+                logo();
+            });
+        });
+    </script>
     <style type="text/css">
         button#go {
             margin-top: 50px;
-            width: 200px;
-            height: 200px;
+            width: 100px;
+            height: 100px;
         }
 
         a {
@@ -20,12 +31,7 @@
 <div style=" float: left" id="drawing"></div>
 <div style="margin-left: 420px">
     <button id="go" onclick="logo();">AGAIN!</button>
-    <br/>
-    <br/>
-    <a id="blend" href="index.html?overlayMethod=blend">blend</a>&nbsp;|&nbsp;<a id="multiply"
-                                                                                 href="index.html?overlayMethod=multiply">multiply</a>
 </div>
 </body>
-<script type="text/javascript" src="logo_gen.js"></script>
 </html>
 

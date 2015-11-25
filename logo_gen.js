@@ -84,6 +84,7 @@ var LogoGen = function (sizeish) {
         var polygon = document.createElementNS(svgNS, 'polygon');
         polygon.setAttribute("points", triangle);
         polygon.setAttribute("id", 'tr' + count);
+        //polygon.setAttribute("style", "stroke-width: .5; stroke: black");
 
         svg.appendChild(polygon);
 

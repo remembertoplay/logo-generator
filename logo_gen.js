@@ -59,6 +59,7 @@ var LogoGen = function (sizeish) {
         ];
     svg.setAttribute("width", "500");
     svg.setAttribute("height", "500");
+    svg.setAttribute("id", "canvas");
 
     console.log("LogoGen initiated", this.d, x, y);
 
@@ -122,7 +123,7 @@ var LogoGen = function (sizeish) {
         //ca += Math.round(colors[nr1][0] * colors[nr2][0] / 255) + ',' +
         //    Math.round(colors[nr1][1] * colors[nr2][1] / 255) + ',' +
         //    Math.round(colors[nr1][2] * colors[nr2][2] / 255) + ')';
-        
+
         // Average colors (blend?)
         ca += Math.round(colors[nr1][0] + colors[nr2][0] / 2) + ',' +
             Math.round(colors[nr1][1] + colors[nr2][1] / 2) + ',' +
@@ -177,13 +178,25 @@ var LogoGen = function (sizeish) {
 
 };
 
-function logo() {
-    lg.redrawColors();
-}
-
 var lg = new LogoGen(80);
 
 $(document).ready(function () {
     lg.drawGrid();
-    logo(lg);
+    lg.redrawColors();
+
+    $("#go").click(function () {
+        lg.redrawColors();
+    });
+
+    $("#download").click(function () {
+        var source = '<?xml version="1.0" standalone="no"?>\r\n' + new XMLSerializer().serializeToString($("#canvas")[0]),
+            a = document.createElement('a');
+
+        a.href = 'data:image/svg+xml;utf8,' + encodeURIComponent(source);
+        a.download = 'logo.svg';
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
 });

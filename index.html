@@ -9,7 +9,7 @@
         $(document).ready(function () {
             var socket = io.connect('http://localhost:5000/test', {reconnection: false});
             socket.on('change colors', function () {
-                logo();
+                lg.redrawColors();
             });
         });
     </script>
@@ -23,14 +23,16 @@
         a {
             font-family: Helvetica, sans-serif;
             color: black;
-            text-decoration: none;
         }
     </style>
 </head>
 <body>
 <div style=" float: left" id="drawing"></div>
 <div style="margin-left: 420px">
-    <button id="go" onclick="logo();">AGAIN!</button>
+    <button id="go">AGAIN!</button>
+    <br/>
+    <br/>
+    <a href="#" id="download">save</a>
 </div>
 </body>
 </html>

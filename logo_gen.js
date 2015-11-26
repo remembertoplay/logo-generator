@@ -57,8 +57,8 @@ var LogoGen = function (sizeish) {
             [2, 3, 6, 7, 8, 9],
             [7, 13, 14, 15, 16, 19]
         ];
-    svg.setAttribute("width", "500");
-    svg.setAttribute("height", "500");
+    svg.setAttribute("width", "700");
+    svg.setAttribute("height", "700");
     svg.setAttribute("id", "canvas");
 
     console.log("LogoGen initiated", this.d, x, y);
@@ -179,7 +179,7 @@ var LogoGen = function (sizeish) {
 
 };
 
-var lg = new LogoGen(80);
+var lg = new LogoGen(160);
 
 $(document).ready(function () {
     lg.drawGrid();

@@ -1,8 +1,3 @@
-/**
- * TODO download link
- *
- */
-
 var LogoGen = function (sizeish) {
     this.d = sizeish;
 

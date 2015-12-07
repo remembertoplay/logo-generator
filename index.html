@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
-    <script type="text/javascript" src="logo_gen.js"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
-            var socket = io.connect('http://localhost:5000/test', {reconnection: false});
-            var overlayVisible = true;
-            socket.on('change colors', function () {
-                $overlay = $("#overlay");
-                $overlay.fadeOut(1000);
-                lg.redrawColors();
-            });
-        });
-    </script>
-    <style type="text/css">
-        body {
-            background-color: #fefefe;
-        }
-        #buttons{
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-        button#go {
-            width: 100px;
-            height: 100px;
-        }
-
-        #drawing{
-            margin: 0 auto;
-            width: 600px;
-        }
-
-        a {
-            font-family: Helvetica, sans-serif;
-            color: black;
-        }
-    </style>
+	<link rel="stylesheet" type="text/css" href="static/css/foundation.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div id="drawing"></div>
-<div id="buttons">
-    <button id="go">AGAIN!</button>
-    <br/>
-    <br/>
-    <a href="#" id="download">save</a>
-</div>
+	<div class="off-canvas-wrap" data-offcanvas>
+		<div class="inner-wrap">
+			
+			<div id="canvas-wrapper" class="drawing">
+				
+				<div class="name-wrapper">
+					<span class="mesos">mesos</span>
+					<span class="name" id="preview">framework</span>
+				</div>
+			</div>
+			
+			<a href="#cp" role="button" class="right-off-canvas-toggle action">Right Menu</a>
+			
+			<aside class="right-off-canvas-menu" id="cp">
+				<h1>logoGen</h1>
+				<form>
+					<input type="text" id="name" placeholder="framework name..."/>
+				</form>
+				<div id="buttons">
+					<ul class="button-group">
+						<li><button id="go" class="tiny info">Again!</button></li>
+						<li><a  href="#" id="download" class="button tiny secondary">Save</a></li>
+					</ul>
+				</div>
+				<a class="exit-off-canvas action close"></a>
+			</aside>
+
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="static/js/foundation.min.js"></script>
+    <script type="text/javascript" src="static/js/foundation.offcanvas.js"></script>
+    <script type="text/javascript" src="logo_gen.js"></script>
+	<script>
+		
+		$(document).ready(function () {
+			
+			// Off-canvas menu
+			$(document).foundation({
+				offcanvas : {
+					open_method: 'overlap', 
+					close_on_click : false
+				}
+			});
+			
+			// Update framework name
+			var input = $('#name'),
+				preview = $('#preview');
+			
+			input.keyup(function(e) {
+				preview.text(input.val());
+			});	
+		});
+		
+	</script>
+	
 </body>
 </html>
 

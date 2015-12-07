@@ -1,3 +1,8 @@
+/**
+ * TODO download link
+ *
+ */
+
 var LogoGen = function (sizeish) {
     this.d = sizeish;
 
@@ -9,6 +14,7 @@ var LogoGen = function (sizeish) {
     // The top most point's offset from the edge of the canvas
         xOff = this.d,
         yOff = 10,
+        maxOff = [0, 0, 0, 0],
         colors = [
             [255, 204, 9],
             [246, 138, 33],
@@ -59,7 +65,7 @@ var LogoGen = function (sizeish) {
     console.log("LogoGen initiated", this.d, x, y);
 
     this.drawGrid = function () {
-        document.getElementById('drawing').appendChild(svg);
+        document.getElementById("canvas-wrapper").appendChild(svg);
 
         row(this.d, xOff, yOff, false, false);
         row(this.d, x + xOff, y + yOff, true, false);
@@ -71,6 +77,7 @@ var LogoGen = function (sizeish) {
     };
 
     function triangle(d, offsetX, offsetY, left) {
+                
         var triangle =
             (x + offsetX) + ',' + offsetY + ' ' +
             (x + offsetX) + ',' + (d + offsetY) + ' ' +
@@ -128,7 +135,7 @@ var LogoGen = function (sizeish) {
     }
 
     function setColor(id, color) {
-        document.getElementById('tr' + id).setAttribute('fill', color);
+		document.getElementById('tr' + id).setAttribute('fill', color);
     }
 
     function setColorToShape(shape, color) {
@@ -155,9 +162,15 @@ var LogoGen = function (sizeish) {
     }
 
     this.redrawColors = function () {
+        
         clearColors();
+        
         var colors = getRandomColors(),
-            nr1 = getRandomInt(0, shapes.length), nr2, safety = 0, overlap;
+            nr1 = getRandomInt(0, shapes.length), 
+            nr2, 
+            safety = 0, 
+            overlap;
+        
         do {
             nr2 = getRandomInt(0, shapes.length);
             safety++;
@@ -170,8 +183,52 @@ var LogoGen = function (sizeish) {
         setColorToShape(shapes[nr1], colors.c1);
         setColorToShape(shapes[nr2], colors.c2);
         setColorToShape(overlap, colors.ca);
+        
+        centerLogo();
     };
-
+    
+    function clearClasses(el) {
+	    
+	    // Clear all classes except drawing
+		el.removeClass().addClass("drawing");    
+    }
+    
+    function placeText(top) {
+	    
+	    $(".name-wrapper").css("top", top + 30);
+    }
+    
+    function centerLogo() {
+	    
+	    var canvas = $(".drawing");
+	    
+	    clearClasses(canvas);
+	    
+	    $("polygon[fill!='none']").each(function (index) {
+				
+			var el = $(this);
+				position = el.position(),
+				width = el.outerWidth(),
+				height = el.innerHeight(),
+				elOff = [position.top, position.left + x, position.top + (y*2), position.left];
+			
+			if (index === 0) maxOff = elOff;	
+			
+			maxOff = [
+				Math.min(maxOff[0], elOff[0]), 
+				Math.max(maxOff[1], elOff[1]), 
+				Math.max(maxOff[2], elOff[2]), 
+				Math.min(maxOff[3], elOff[3])
+			];
+		});
+				
+		placeText(maxOff[2]);
+		
+		// Center horizontally
+		// TODO: don't use hardcoded values...
+		if (maxOff[1] === 437.12815151957267) canvas.addClass("empty-right-col");
+		if (maxOff[3] === 160) canvas.addClass("empty-left-col");
+    };
 };
 
 var lg = new LogoGen(160);

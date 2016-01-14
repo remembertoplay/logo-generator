@@ -1,139 +1,311 @@
-html,
-        body,
-        .off-canvas-wrap,
-        .inner-wrap {
-	        height: 100%;
-        }
-        
-        body {
-            background: url(static/img/bg.jpg);
-            text-align: center;
-        }
-        
-        .drawing {
-            width: 600px;
-            display: inline-block;
-            position: relative;
-        }
-        
-        .drawing.empty-left-col {
-	        margin-left: -139px;
-        }
-        
-        .drawing.empty-right-col {
-	        margin-right: -139px;
-        }
-        
-        .drawing.empty-left-col.empty-right-col {
-	        margin-left: 0;
-	        margin-right: 0;
-        }
-        
-                
-        .right-off-canvas-toggle {
-	        position: absolute;
-	        top: 20px;
-	        right: 20px;
-	        
-	        background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMwcHgiIGhlaWdodD0iMzBweCIgdmlld0JveD0iNy4xMTggNy4xMTggMzAgMzAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgNy4xMTggNy4xMTggMzAgMzAiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxnPjxwYXRoIGQ9Ik0yMi4xMTgsMzcuMTE4Yy04LjI3MSwwLTE1LTYuNzI5LTE1LTE1czYuNzI5LTE1LDE1LTE1YzguMjcxLDAsMTUsNi43MjksMTUsMTVTMzAuMzg5LDM3LjExOCwyMi4xMTgsMzcuMTE4eiBNMjIuMTE4LDguMTM1Yy03LjcwOSwwLTEzLjk4Myw2LjI3My0xMy45ODMsMTMuOTgzYzAsNy43MSw2LjI3MywxMy45ODIsMTMuOTgzLDEzLjk4MmM3LjcxLDAsMTMuOTgyLTYuMjcxLDEzLjk4Mi0xMy45ODJDMzYuMSwxNC40MDgsMjkuODI4LDguMTM1LDIyLjExOCw4LjEzNXoiLz48Zz48Y2lyY2xlIGN4PSIyMi4xMTgiIGN5PSIyMi4zMzUiIHI9IjAuOTU3Ii8+PHBhdGggZD0iTTIyLjExOCwyMy40NjFjLTAuNjIxLDAtMS4xMjYtMC41MDQtMS4xMjYtMS4xMjVjMC0wLjYyMSwwLjUwNS0xLjEyNiwxLjEyNi0xLjEyNmMwLjYyLDAsMS4xMjUsMC41MDUsMS4xMjUsMS4xMjZDMjMuMjQzLDIyLjk1NywyMi43MzksMjMuNDYxLDIyLjExOCwyMy40NjF6IE0yMi4xMTgsMjEuNTQ4Yy0wLjQzNCwwLTAuNzg3LDAuMzUzLTAuNzg3LDAuNzg3YzAsMC40MzMsMC4zNTQsMC43ODcsMC43ODcsMC43ODdzMC43ODYtMC4zNTQsMC43ODYtMC43ODdDMjIuOTA0LDIxLjksMjIuNTUyLDIxLjU0OCwyMi4xMTgsMjEuNTQ4eiIvPjwvZz48Zz48cGF0aCBkPSJNMjIuMTE4LDI5LjEwNGMtMC40MDcsMC0wLjgxOS0wLjA0MS0xLjI2Mi0wLjEyM2MtMC4zMDItMC4wNDItMC41NjItMC4zMDItMC42MDgtMC42MjhsLTAuMjQzLTEuMjQ2Yy0wLjMxMi0wLjE0MS0wLjYwNy0wLjMxMi0wLjg3My0wLjUwNWwtMS4yMTksMC40MjNjLTAuMDU5LDAuMDI3LTAuMTU4LDAuMDQ3LTAuMjU4LDAuMDQ3Yy0wLjIxNSwwLTAuNDIyLTAuMDk5LTAuNTY4LTAuMjdjLTAuNTY3LTAuNjQ2LTEuMDA1LTEuNDA3LTEuMjYzLTIuMTkzYy0wLjEyNC0wLjI4My0wLjAxNi0wLjY2LDAuMjczLTAuODUzbDAuOTIxLTAuODA0Yy0wLjAxNi0wLjE1Ni0wLjAyMy0wLjMyNS0wLjAyMy0wLjUxYzAtMC4xODQsMC4wMDctMC4zNTMsMC4wMjMtMC41MDlsLTAuOTczLTAuODQ0Yy0wLjIzNy0wLjE1NC0wLjM0Ni0wLjUyOS0wLjIwNi0wLjg1NmMwLjI0MS0wLjc0NCwwLjY4LTEuNTA0LDEuMjUyLTIuMTU3YzAuMjAzLTAuMjQxLDAuNTU4LTAuMzMyLDAuODU1LTAuMjAybDEuMTg0LDAuNDA5YzAuMjY1LTAuMTkyLDAuNTYtMC4zNjQsMC44NzMtMC41MDVsMC4yNDctMS4yNzFjMC4wNDMtMC4zMDMsMC4zMDUtMC41NjMsMC42MzItMC42MDZjMC43NjMtMC4xNTksMS42NzItMC4xNjUsMi41MDUsMC4wMDZjMC4yOTIsMC4wMzgsMC41NTQsMC4yOTcsMC42MDEsMC42MjVsMC4yNDIsMS4yNDdjMC4zMDQsMC4xMzgsMC41OTQsMC4zMDcsMC44NywwLjUwNmwxLjIyMy0wLjQyM2MwLjA1OS0wLjAyNywwLjE1Ny0wLjA0NywwLjI1OS0wLjA0N2MwLjIxNiwwLDAuNDIzLDAuMDk5LDAuNTY3LDAuMjcxYzAuNTY2LDAuNjQ0LDEuMDA1LDEuNDA0LDEuMjYzLDIuMTkxYzAuMTI0LDAuMjg0LDAuMDE1LDAuNjYtMC4yNzMsMC44NTNsLTAuOTIxLDAuODA0YzAuMDE1LDAuMTU3LDAuMDIyLDAuMzI1LDAuMDIyLDAuNTFzLTAuMDA3LDAuMzUzLTAuMDIyLDAuNTA5bDAuOTczLDAuODQ0YzAuMjM3LDAuMTUzLDAuMzQ3LDAuNTI5LDAuMjA2LDAuODU1Yy0wLjI0MSwwLjc0NC0wLjY4LDEuNTA2LTEuMjUzLDIuMTU4Yy0wLjIwNSwwLjI0Mi0wLjU2LDAuMzI5LTAuODU1LDAuMjAybC0xLjE4Ny0wLjQwOWMtMC4yNzUsMC4xOTgtMC41NjcsMC4zNjctMC44NjksMC41MDZsLTAuMjQ3LDEuMjcxYy0wLjA0MiwwLjMwMS0wLjMwMywwLjU2MS0wLjYyOCwwLjYwN0MyMi45MzgsMjkuMDYzLDIyLjUyNSwyOS4xMDQsMjIuMTE4LDI5LjEwNHogTTIxLjIxNywyOC4wMTJjMC42NTEsMC4xMDMsMS4xNzksMC4wOTksMS44MDQsMGwwLjI2NS0xLjM2NWMwLjAzNC0wLjE3MiwwLjE1My0wLjMxNCwwLjMxNi0wLjM3OGMwLjM4Ni0wLjE0OSwwLjc1My0wLjM2MiwxLjA5LTAuNjM0YzAuMTM2LTAuMTEsMC4zMTktMC4xNDEsMC40ODUtMC4wODVsMS4zMTQsMC40NTZjMC4zOTQtMC40NzksMC43MDEtMS4wMTEsMC45MDItMS41NjJsLTEuMDUxLTAuOTA2Yy0wLjEzNy0wLjExOC0wLjItMC4zLTAuMTY3LTAuNDc4YzAuMDMyLTAuMTc1LDAuMDQ3LTAuMzc4LDAuMDQ3LTAuNjE5YzAtMC4yNDItMC4wMTUtMC40NDQtMC4wNDctMC42MmMtMC4wMzQtMC4xNzcsMC4wMy0wLjM1OSwwLjE2Ny0wLjQ3N2wxLjA0OS0wLjkxYy0wLjIxMi0wLjU2OS0wLjUxOS0xLjA5My0wLjkwMS0xLjU1OGwtMS4zMTUsMC40NTdjLTAuMTY1LDAuMDU2LTAuMzUsMC4wMjMtMC40ODUtMC4wODVjLTAuMzM2LTAuMjcxLTAuNzAyLTAuNDg1LTEuMDg5LTAuNjM1Yy0wLjE2NC0wLjA2My0wLjI4NC0wLjIwNS0wLjMxNi0wLjM3N2wtMC4yNjYtMS4zNjZjLTAuNjI3LTAuMTA1LTEuMjE1LTAuMS0xLjgwMywwbC0wLjI2NCwxLjM2NmMtMC4wMzMsMC4xNzItMC4xNTMsMC4zMTQtMC4zMTYsMC4zNzdjLTAuNDA2LDAuMTU3LTAuNzc5LDAuMzc1LTEuMDgyLDAuNjI4Yy0wLjEzNywwLjExNS0wLjMyNCwwLjE1LTAuNDk0LDAuMDkybC0xLjMxNC0wLjQ1N2MtMC4zOTQsMC40NzktMC43MDEsMS4wMTEtMC45MDIsMS41NjFsMS4wNTEsMC45MDdjMC4xMzYsMC4xMTksMC4xOTksMC4yOTksMC4xNjcsMC40NzhjLTAuMDMzLDAuMTczLTAuMDQ4LDAuMzc1LTAuMDQ4LDAuNjE4YzAsMC4yNDMsMC4wMTUsMC40NDUsMC4wNDgsMC42MThjMC4wMzQsMC4xNzktMC4wMywwLjM1OS0wLjE2NywwLjQ3OWwtMS4wNSwwLjkxMWMwLjIxMywwLjU2NiwwLjUxOCwxLjA5MSwwLjkwMSwxLjU1OGwxLjMxNS0wLjQ1N2MwLjE3LTAuMDU3LDAuMzU2LTAuMDIyLDAuNDkzLDAuMDkyYzAuMzAzLDAuMjU0LDAuNjc3LDAuNDY5LDEuMDgyLDAuNjI3YzAuMTYzLDAuMDYzLDAuMjgzLDAuMjA2LDAuMzE2LDAuMzc4TDIxLjIxNywyOC4wMTJ6Ii8+PC9nPjwvZz48L2c+PC9zdmc+);
+/**
+ * @license
+ * MyFonts Webfont Build ID 3152428, 2016-01-12T08:29:29-0500
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: FuturaPT-Book by ParaType
+ * URL: http://www.myfonts.com/fonts/paratype/futura-book/futura-book/
+ * 
+ * Webfont: FuturaPT-Heavy by ParaType
+ * URL: http://www.myfonts.com/fonts/paratype/futura-book/heavy/
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=3152428
+ * Licensed pageviews: 10,000
+ * Webfonts copyright: Copyright &#x00A9; 1995 ParaGraph Intl., &#x00A9; 1998 ParaType Inc., ParaType Ltd. All rights reserved.
+ * 
+ * © 2016 MyFonts Inc
+*/
 
-        }
+@import url("//hello.myfonts.net/count/301a2c");
+@import url(https://fonts.googleapis.com/css?family=Dosis:400,600);
+
+@font-face {
+	font-family: 'FuturaPT-Book';
+	src: url('static/webfonts/301A2C_0_0.eot');
+	src: url('static/webfonts/301A2C_0_0.eot?#iefix') format('embedded-opentype'),
+		 url('static/webfonts/301A2C_0_0.woff2') format('woff2'),
+		 url('static/webfonts/301A2C_0_0.woff') format('woff'),
+		 url('static/webfonts/301A2C_0_0.ttf') format('truetype');
+}
+  
+@font-face {
+	font-family: 'FuturaPT-Heavy';
+	src: url('static/webfonts/301A2C_1_0.eot');
+	src: url('static/webfonts/301A2C_1_0.eot?#iefix') format('embedded-opentype'),
+		 url('static/webfonts/301A2C_1_0.woff2') format('woff2'),
+		 url('static/webfonts/301A2C_1_0.woff') format('woff'),
+		 url('static/webfonts/301A2C_1_0.ttf') format('truetype');
+}
+
+
+/**
+ * Structure
+ *
+*/
+
+html,
+body,
+.off-canvas-wrap,
+.inner-wrap {
+    height: 100%;
+    font-family: 'Dosis', sans-serif;
+}
+
+body {
+    background: url(static/img/bg.jpg);
+    text-align: center;
+}
+
+
+/**
+ * Logo positioning
+ *
+*/
+
+.drawing {
+    width: 448px;
+    height: 520px;
+	display: inline-block;
+	position: relative;
+}
+
+.menu-opened {
+    transform: translateX(-155px);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    
+}
+
+.drawing.empty-left-col {
+	margin-left: -104px;
+}
+
+.drawing.empty-right-col {
+	margin-right: -104px;
+}
+
+.drawing.empty-left-col.empty-right-col {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.drawing.empty-left-col .name-wrapper {
+	margin-left: 52px;	
+}
+
+.drawing.empty-right-col .name-wrapper {
+	margin-left: -52px;
+}
+
+.drawing.empty-left-col.empty-right-col .name-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+/**
+ * Name wrapper
+ *
+*/
+
+.name-wrapper span {
+    width: 50%;
+    float: left;
+    display: block;
+    height: 42px;
+    line-height: 42px;
+    font-size: 35px;
+}
+
+.mesos {
+    text-align: right;
+    padding-right: 7px;
+    
+}
+
+.name {
+    text-align: left;
+    padding-left: 7px;
+    
+    margin-top: 24px;
+    font-weight: 800;
+    font-family: 'FuturaPT-Heavy', sans-serif;
+}
+
+
+.name-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 66px;
+	line-height: 66px;
+	font-family: 'FuturaPT-Book', sans-serif;
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIzNHB4IiBoZWlnaHQ9IjY2cHgiIHZpZXdCb3g9IjAgMCAzNCA2NiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzQgNjYiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiMyNzI2MjYiIHBvaW50cz0iMS43MTYsNjYgMCw2NS4xMzMgMzIuMjgyLDAgMzQsMC44NjUgIi8+PC9zdmc+);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+}
+  
+  
+/**
+ * Off canvas section
+ *
+*/  
         
-        .right-off-canvas-toggle:hover {
-	    	opacity: 1;
-	    }
-        
-        .right-off-canvas-menu {
-	        background: black;
-	        height: 100vh;
-	        color: white;
-	        text-align: left;
-	        padding: 15px 10px;
-        }
-        
-        .right-off-canvas-menu a {
-	    	color: white;    
-	    }
-	    
-	    h1 {
-		    margin: 0 0 1em 0;
-		    font-size: 20px;
-		    color: white;
-        }
-        
-        .action {
-	    	width: 30px;
-	        height: 30px;
-	        text-indent: -9999px;
-	        background-size: cover;
-	        opacity: .8;
-	        
-	        position: absolute;
-	        top: 20px;
-	        right: 20px;
-	    }
-        
-        .right-off-canvas-menu .exit-off-canvas.close.action {
-	        box-shadow: none;
-		    cursor: pointer;
-		    transition: none;
-		    -webkit-tap-highlight-color: transparent;
-		    bottom: auto;
-		    display: block;
-		    left:auto;
-		    right: 10px;
-		    top: 20px;
-		    z-index: 1002;
-	        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMwcHgiIGhlaWdodD0iMzBweCIgdmlld0JveD0iNy4xMTkgNy4xMTkgMzAgMzAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgNy4xMTkgNy4xMTkgMzAgMzAiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxnPjxnPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xNy42NTMsMjcuMDk0Yy0wLjEzLDAtMC4yNi0wLjA1MS0wLjM1OS0wLjE0OGMtMC4xOTktMC4xOTktMC4xOTktMC41MjMsMC0wLjcyMWw4LjkzMi04LjkzM2MwLjE5OC0wLjE5OSwwLjUyMS0wLjE5OSwwLjcyLDBjMC4xOTgsMC4xOTksMC4xOTgsMC41MjEsMCwwLjcybC04LjkzMyw4LjkzM0MxNy45MTMsMjcuMDQzLDE3Ljc4MywyNy4wOTQsMTcuNjUzLDI3LjA5NHoiLz48L2c+PGc+PHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTI2LjU4NSwyNy4wOTRjLTAuMTMsMC0wLjI2MS0wLjA1MS0wLjM1OS0wLjE0OGwtOC45MzMtOC45MzNjLTAuMTk5LTAuMTk5LTAuMTk5LTAuNTIxLDAtMC43MnMwLjUyMS0wLjE5OSwwLjcyLDBsOC45MzIsOC45MzJjMC4xOTgsMC4xOTksMC4xOTgsMC41MjEsMCwwLjcyMUMyNi44NDQsMjcuMDQzLDI2LjcxNSwyNy4wOTQsMjYuNTg1LDI3LjA5NHoiLz48L2c+PHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTIyLjExOSwzNy4xMTdjLTguMjcxLDAtMTUtNi43MjktMTUtMTQuOTk4YzAtOC4yNzEsNi43MjktMTUsMTUtMTVzMTUsNi43MjksMTUsMTVTMzAuMzg5LDM3LjExNywyMi4xMTksMzcuMTE3eiBNMjIuMTE5LDguMTM2Yy03LjcxLDAtMTMuOTgzLDYuMjcyLTEzLjk4MywxMy45ODJjMCw3LjcxMSw2LjI3MywxMy45ODIsMTMuOTgzLDEzLjk4MnMxMy45ODItNi4yNzEsMTMuOTgyLTEzLjk4MkMzNi4xMDEsMTQuNDA5LDI5LjgyOSw4LjEzNiwyMi4xMTksOC4xMzZ6Ii8+PC9nPjwvZz48L3N2Zz4=);
-	    }
-	    
-	    
-	    
-	    form input[type="text"] {
-		    color: white;
-		    border-color: white;
-		    background: transparent;
-	    }
-	    
-	    form input[type="text"]:focus {
-	    	background: transparent;
-	    }
-	    
-	    
-	    
-	    .name-wrapper span {
-		    width: 50%;
-		    float: left;
-		    display: block;
-		    height: 42px;
-		    line-height: 42px;
-		    font-size: 35px;
-	    }
-	    
-	    .mesos {
-		    text-align: right;
-		    padding-right: 7px;
-		    
-	    }
-	    
-	    .name {
-		    text-align: left;
-		    padding-left: 7px;
-		    
-		    margin-top: 24px;
-		    font-weight: 800;
-	    }
-	    
-	    
-	    .name-wrapper {
-	        position: fixed;
-	        top: 0;
-	        left: 0;
-	        width: 100%;
-	       height: 66px;
-	       line-height: 66px;
-	      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIzNHB4IiBoZWlnaHQ9IjY2cHgiIHZpZXdCb3g9IjAgMCAzNCA2NiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzQgNjYiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiMyNzI2MjYiIHBvaW50cz0iMS43MTYsNjYgMCw2NS4xMzMgMzIuMjgyLDAgMzQsMC44NjUgIi8+PC9zdmc+);
-	      background-repeat: no-repeat;
-	      background-position: center center;
-	      background-size: contain;
-        }
+.right-off-canvas-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 87px;
+    background-image: url(static/img/toolbox.svg);
+	text-indent: -9999px;
+}
+
+.right-off-canvas-toggle:hover {
+	opacity: 1;
+}
+
+.right-off-canvas-menu {
+    background: #0cbcd3;
+    height: 100vh;
+    color: #f7f7f8;
+    text-align: left;
+    padding: 50px 30px;
+}
+
+.right-off-canvas-menu a {
+	color: #f7f7f8;    
+}
+
+.action {
+	width: 30px;
+    height: 30px;
+    text-indent: -9999px;
+    background-size: cover;
+    
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.right-off-canvas-menu .exit-off-canvas.close.action {
+    box-shadow: none;
+    cursor: pointer;
+    transition: none;
+    -webkit-tap-highlight-color: transparent;
+    bottom: auto;
+    display: block;
+    left:auto;
+    right: 10px;
+    top: 20px;
+    z-index: 1002;
+    background: url(static/img/close.svg);
+}
+
+h1 {
+    margin: 0 0 30px 0;
+    font-size: 20px;
+    color: #f7f7f8;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-family: 'Dosis', sans-serif;
+}
+
+
+/**
+ * Form
+ *
+*/ 
+
+form {
+	margin-bottom: 40px;
+}
+
+form input[type="text"] {
+    color: #f7f7f8;
+    border-color: #f7f7f8;
+    height: 30px;
+    line-height: 29px;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 200;
+    border: 2px solid #f7f7f8;
+    background: transparent;
+    margin-bottom: 0;
+    font-family: 'FuturaPT-Book', sans-serif;
+}
+
+form input[type="text"]:focus {
+	background: transparent;
+	outline: 0;
+	border-color: white;
+}
+
+form input[type="text"]::-webkit-input-placeholder { color: #f7f7f8; } /* WebKit */
+form input[type="text"]:-moz-placeholder { color: #f7f7f8; } /* Firefox 18- */
+form input[type="text"]::-moz-placeholder { color: #f7f7f8; } /* Firefox 19+ */
+form input[type="text"]:-ms-input-placeholder { color: #f7f7f8; } /* IE 10+ */
+
+
+/**
+ * Buttons
+ *
+*/ 
+
+button,
+a.button {
+    background: transparent!important;
+    border: 3px solid white!important;
+    height: 36px;
+    width: 170px;
+    text-align: center;
+    text-transform: uppercase;
+    color: white!important;
+    margin-bottom: 10px!important;
+    box-shadow: 3px 3px 0px 0px #10a4b9;
+    font-family: 'Dosis', sans-serif;
+    
+    
+}
+
+button:focus,
+a.button:focus {
+	outline: none;	
+}
+
+.button-group {
+	text-align: center;
+}
+
+.button-group li {
+	padding-left: 34px;
+	display: inline-block;
+	position: relative;
+}
+
+span.icon {
+	width: 34px;
+	height: 25px;
+	background: red;
+	position: absolute;
+	top: 5px;
+    left: -10px;
+}
+
+span.icon.save {
+	background: url(static/img/save.svg);
+}
+
+span.icon.regenerate {
+	background: url(static/img/regenerate.svg);
+}

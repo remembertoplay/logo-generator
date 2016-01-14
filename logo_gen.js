@@ -58,8 +58,8 @@ var LogoGen = function (sizeish) {
             [2, 3, 6, 7, 8, 9],
             [7, 13, 14, 15, 16, 19]
         ];
-    svg.setAttribute("width", "600");
-    svg.setAttribute("height", "700");
+    svg.setAttribute("width", "448");
+    svg.setAttribute("height", "520");
     svg.setAttribute("id", "canvas");
 
     console.log("LogoGen initiated", this.d, x, y);
@@ -189,8 +189,10 @@ var LogoGen = function (sizeish) {
     
     function clearClasses(el) {
 	    
+	    var test = el.hasClass("menu-opened") ? "drawing menu-opened" : "drawing";
+	    
 	    // Clear all classes except drawing
-		el.removeClass().addClass("drawing");    
+		el.removeClass().addClass(test);    
     }
     
     function placeText(top) {
@@ -226,16 +228,24 @@ var LogoGen = function (sizeish) {
 		
 		// Center horizontally
 		// TODO: don't use hardcoded values...
-		if (maxOff[1] === 437.12815151957267) canvas.addClass("empty-right-col");
-		if (maxOff[3] === 160) canvas.addClass("empty-left-col");
+		if (maxOff[1] === 327.8460831221014) canvas.addClass("empty-right-col");
+		if (maxOff[3] === 120) canvas.addClass("empty-left-col");
     };
 };
 
-var lg = new LogoGen(160);
+var lg = new LogoGen(120);
 
 $(document).ready(function () {
     lg.drawGrid();
     lg.redrawColors();
+    
+    $(document)
+	.on('open.fndtn.offcanvas', '[data-offcanvas]', function() {
+		$(".drawing").addClass("menu-opened");
+	})
+	.on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
+		$(".drawing").removeClass("menu-opened");
+	});
 
     $("#go").click(function () {
         lg.redrawColors();

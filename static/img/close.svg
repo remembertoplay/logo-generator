@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="30px" height="30px" viewBox="0 0 30 30" enable-background="new 0 0 30 30" xml:space="preserve">
+<g id="Close_Button">
+	<path fill="#F0EFEF" d="M15,30C6.729,30,0,23.271,0,15C0,6.729,6.729,0,15,0s15,6.729,15,15C30,23.271,23.271,30,15,30z M15,2
+		C7.832,2,2,7.832,2,15c0,7.167,5.832,13,13,13s13-5.832,13-13C28,7.832,22.168,2,15,2z"/>
+	<path fill="none" stroke="#F0EFEF" stroke-width="1.5" stroke-miterlimit="10" d="M13.5,10.61"/>
+	<path fill="#F0EFEF" d="M19.688,20.859c-0.193,0-0.387-0.074-0.534-0.224l-9.375-9.499c-0.291-0.295-0.287-0.77,0.008-1.061
+		c0.294-0.292,0.769-0.288,1.061,0.007l9.375,9.5c0.291,0.294,0.287,0.77-0.008,1.061C20.068,20.787,19.878,20.859,19.688,20.859z"
+		/>
+	<path fill="#F0EFEF" d="M10.312,20.859c-0.19,0-0.381-0.072-0.526-0.216c-0.295-0.291-0.299-0.767-0.008-1.061l9.375-9.5
+		c0.292-0.294,0.768-0.298,1.061-0.007c0.295,0.291,0.299,0.766,0.008,1.061l-9.375,9.499
+		C10.699,20.785,10.506,20.859,10.312,20.859z"/>
+</g>
+</svg>

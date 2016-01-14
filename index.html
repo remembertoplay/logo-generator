@@ -16,17 +16,17 @@
 				</div>
 			</div>
 			
-			<a href="#cp" role="button" class="right-off-canvas-toggle action">Right Menu</a>
+			<a href="#cp" role="button" class="right-off-canvas-toggle">Right Menu</a>
 			
 			<aside class="right-off-canvas-menu" id="cp">
-				<h1>logoGen</h1>
+				<h1>Mesos Logo Generator</h1>
 				<form>
-					<input type="text" id="name" placeholder="framework name..."/>
+					<input type="text" id="name" placeholder="Type in the framework name"/>
 				</form>
 				<div id="buttons">
 					<ul class="button-group">
-						<li><button id="go" class="tiny info">Again!</button></li>
-						<li><a  href="#" id="download" class="button tiny secondary">Save</a></li>
+						<li><span class="regenerate icon"></span><button id="go" class="tiny">Regenerate Shape</button></li>
+						<li><span class="save icon"></span><a  href="#" id="download" class="button tiny secondary">Save logo design</a></li>
 					</ul>
 				</div>
 				<a class="exit-off-canvas action close"></a>
@@ -38,13 +38,13 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="static/js/foundation.min.js"></script>
     <script type="text/javascript" src="static/js/foundation.offcanvas.js"></script>
-    <script type="text/javascript" src="logo_gen.js"></script>
 	<script>
 		
 		$(document).ready(function () {
 			
 			// Off-canvas menu
 			$(document).foundation({
+				
 				offcanvas : {
 					open_method: 'overlap', 
 					close_on_click : false
@@ -61,7 +61,7 @@
 		});
 		
 	</script>
-	
+	<script type="text/javascript" src="logo_gen.js"></script>
 </body>
 </html>
 

@@ -62,6 +62,10 @@ body {
     text-align: center;
 }
 
+.inner-wrap {
+	padding-right: 320px;	
+}
+
 
 /**
  * Logo positioning
@@ -175,15 +179,19 @@ body {
 	opacity: 1;
 }
 
-.right-off-canvas-menu {
+#cp {
     background: #0cbcd3;
     height: 100vh;
     color: #f7f7f8;
     text-align: left;
     padding: 50px 30px;
+    width: 320px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
-.right-off-canvas-menu a {
+#cp a {
 	color: #f7f7f8;    
 }
 
@@ -198,7 +206,7 @@ body {
     right: 20px;
 }
 
-.right-off-canvas-menu .exit-off-canvas.close.action {
+#cp .exit-off-canvas.close.action {
     box-shadow: none;
     cursor: pointer;
     transition: none;

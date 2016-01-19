@@ -5,7 +5,6 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div class="off-canvas-wrap" data-offcanvas>
 		<div class="inner-wrap">
 			
 			<div id="canvas-wrapper" class="drawing">
@@ -18,7 +17,7 @@
 			
 			<a href="#cp" role="button" class="right-off-canvas-toggle">Right Menu</a>
 			
-			<aside class="right-off-canvas-menu" id="cp">
+			<aside id="cp">
 				<h1>Mesos Logo Generator</h1>
 				<form>
 					<input type="text" id="name" placeholder="Type in the framework name"/>
@@ -29,27 +28,14 @@
 						<li><span class="save icon"></span><a  href="#" id="download" class="button tiny secondary">Save logo design</a></li>
 					</ul>
 				</div>
-				<a class="exit-off-canvas action close"></a>
 			</aside>
 
 		</div>
-	</div>
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="static/js/foundation.min.js"></script>
-    <script type="text/javascript" src="static/js/foundation.offcanvas.js"></script>
 	<script>
 		
 		$(document).ready(function () {
-			
-			// Off-canvas menu
-			$(document).foundation({
-				
-				offcanvas : {
-					open_method: 'overlap', 
-					close_on_click : false
-				}
-			});
 			
 			// Update framework name
 			var input = $('#name'),
@@ -64,4 +50,3 @@
 	<script type="text/javascript" src="logo_gen.js"></script>
 </body>
 </html>
-

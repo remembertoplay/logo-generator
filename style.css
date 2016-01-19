@@ -58,7 +58,6 @@ body,
 }
 
 body {
-    background: url(static/img/bg.jpg);
     text-align: center;
 }
 
@@ -161,23 +160,9 @@ body {
   
   
 /**
- * Off canvas section
+ * Sidebar
  *
 */  
-        
-.right-off-canvas-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 60px;
-    height: 87px;
-    background-image: url(static/img/toolbox.svg);
-	text-indent: -9999px;
-}
-
-.right-off-canvas-toggle:hover {
-	opacity: 1;
-}
 
 #cp {
     background: #0cbcd3;
@@ -193,31 +178,6 @@ body {
 
 #cp a {
 	color: #f7f7f8;    
-}
-
-.action {
-	width: 30px;
-    height: 30px;
-    text-indent: -9999px;
-    background-size: cover;
-    
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-#cp .exit-off-canvas.close.action {
-    box-shadow: none;
-    cursor: pointer;
-    transition: none;
-    -webkit-tap-highlight-color: transparent;
-    bottom: auto;
-    display: block;
-    left:auto;
-    right: 10px;
-    top: 20px;
-    z-index: 1002;
-    background: url(static/img/close.svg);
 }
 
 h1 {

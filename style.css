@@ -241,7 +241,7 @@ a.button {
     color: white!important;
     margin-bottom: 10px!important;
     box-shadow: 3px 3px 0px 0px #10a4b9;
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Dosis', sans-serif!important;
     
     
 }
